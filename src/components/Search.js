@@ -19,7 +19,5 @@ function SearchPlanetas() {
 
   );
 }
-// { ({ target }) => filtroPlanetas(target.value) }
-// { (event) => { handleChange(event, filtroPlanetas); } }
 
 export default SearchPlanetas;
