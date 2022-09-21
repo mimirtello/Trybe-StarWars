@@ -47,8 +47,7 @@ function PlanetProvider(props) {
     loading,
     search,
     filtroPlanetas,
-    handleChange,
-    handleChangeGenerico };
+  };
   const { children } = props;
   return (
     <PlanetContext.Provider value={ contextValue }>
