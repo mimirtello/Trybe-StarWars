@@ -6,6 +6,26 @@ import getStarWarsPlanets from '../services/Api';
 function PlanetProvider(props) {
   const [planets, setPlanets] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState({
+    filterByName: {
+      name: '',
+    },
+  });
+
+  // const handleChangeGenerico = ({ target: { name, value } }) => {
+  //   setSearch((prevSearch) => ({
+  //     ...prevSearch,
+  //     [name]: value,
+  //   }));
+  // };
+
+  const filtroPlanetas = (palavra) => {
+    setSearch({
+      filterByName: {
+        name: palavra,
+      },
+    });
+  };
 
   const servidorOk = () => {
     setLoading(false);
@@ -22,7 +42,13 @@ function PlanetProvider(props) {
     }
   };
 
-  const contextValue = { getPlanets, planets, loading };
+  const contextValue = { getPlanets,
+    planets,
+    loading,
+    search,
+    filtroPlanetas,
+    handleChange,
+    handleChangeGenerico };
   const { children } = props;
   return (
     <PlanetContext.Provider value={ contextValue }>

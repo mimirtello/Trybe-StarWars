@@ -2,7 +2,12 @@ import React, { useContext, useEffect } from 'react';
 import PlanetContext from '../context/PlanetContext';
 
 function Table() {
-  const { getPlanets, planets, loading } = useContext(PlanetContext);
+  const { getPlanets, planets,
+    loading, search } = useContext(PlanetContext);
+  const filtro = (search.filterByName.name.length > 0)
+    ? planets.filter((planeta) => (planeta.name)
+      .toLowerCase().includes(search.filterByName.name))
+    : planets;
 
   useEffect(() => {
     getPlanets();
@@ -32,7 +37,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-          {planets.map((planet) => (
+          {filtro.map((planet) => (
             <tr key={ planet.name }>
               <td>{planet.name}</td>
               <td>{planet.rotation_period}</td>
