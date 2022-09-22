@@ -10,6 +10,7 @@ function PlanetProvider(props) {
     filterByName: {
       name: '',
     },
+    filterByNumericValues: [],
   });
 
   // const handleChangeGenerico = ({ target: { name, value } }) => {
@@ -25,6 +26,18 @@ function PlanetProvider(props) {
         name: palavra,
       },
     });
+  };
+
+  const filtroSelect = (coluna, operador, numero) => {
+    setSearch((prevstate) => ({
+      filterByName: { ...prevstate.filterByName },
+      filterByNumericValues: prevstate.filterByNumericValues
+        ? [...prevstate.filterByNumericValues,
+          {
+            column: coluna,
+            comparison: operador,
+            value: numero }] : [],
+    }));
   };
 
   const servidorOk = () => {
@@ -47,6 +60,7 @@ function PlanetProvider(props) {
     loading,
     search,
     filtroPlanetas,
+    filtroSelect,
   };
   const { children } = props;
   return (

@@ -12,7 +12,7 @@ function SearchPlanetas() {
         name="name"
         type="text"
         onChange={ ({ target }) => filtroPlanetas(target.value) }
-        value={ search.FilterByName }
+        value={ search.value }
       />
 
     </div>
