@@ -3,7 +3,7 @@ import PlanetContext from '../context/PlanetContext';
 
 function Table() {
   const { getPlanets, planets,
-    loading, search, filtroSelect } = useContext(PlanetContext);
+    loading, search, setSearch } = useContext(PlanetContext);
 
   const filtro = (search.filterByName.name.length > 0)
     ? planets.filter((planeta) => (planeta.name)
@@ -29,7 +29,6 @@ function Table() {
       return Numberfilter;
     }
   };
-  console.log(filtro);
   const acaoFiltrar = () => {
     let arrayFiltrado = filtro || [];
     if (search.filterByNumericValues) {
@@ -37,12 +36,29 @@ function Table() {
         arrayFiltrado = comparacao(filtroDeComparacao, arrayFiltrado);
       });
     }
-    return arrayFiltrado || [];
+    return arrayFiltrado;
+  };
+
+  const excluirUm = (filtroDeletavel) => {
+    const deleteFilter = search.filterByNumericValues
+      .filter((data) => data.column !== filtroDeletavel);
+    setSearch({ filterByName: {
+      name: search.filterByName.name,
+    },
+    filterByNumericValues: [...deleteFilter] });
+    console.log(filtroDeletavel);
+    // target.parentNode.remove();
+  };
+  const deletaTudo = () => {
+    setSearch({
+      filterByName: {
+        name: '',
+      },
+      filterByNumericValues: [] });
   };
 
   useEffect(() => {
     getPlanets();
-    filtroSelect();
   }, []);
 
   if (loading) return <h1>Loading...</h1>;
@@ -52,13 +68,32 @@ function Table() {
       <h1> Star Wars Project Planets Search</h1>
       <div>
         {search.filterByNumericValues && search.filterByNumericValues.map((e, index) => (
-          <div key={ index }>
+          <div data-testid="filter" key={ index }>
+
             <span>{ e.column }</span>
             <span>{e.comparison}</span>
             <span>{e.value}</span>
+            <button
+              type="button"
+              onClick={ () => excluirUm(e.column) }
+            >
+              {' '}
+              X
+              {' '}
+
+            </button>
           </div>
         ))}
+        <button
+          type="button"
+          data-testid="button-remove-filters"
+          onClick={ () => { deletaTudo(); } }
+        >
+          Excluir Tudo
+
+        </button>
       </div>
+
       <table>
         <thead>
           <tr>
@@ -78,7 +113,7 @@ function Table() {
           </tr>
         </thead>
         <tbody>
-
+          {console.log(acaoFiltrar())}
           {acaoFiltrar().map((planet) => (
             <tr key={ planet.name }>
               <td>{planet.name}</td>

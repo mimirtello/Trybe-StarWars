@@ -29,6 +29,7 @@ function PlanetProvider(props) {
   };
 
   const filtroSelect = (coluna, operador, numero) => {
+    console.log(coluna, operador, numero);
     setSearch((prevstate) => ({
       filterByName: { ...prevstate.filterByName },
       filterByNumericValues: prevstate.filterByNumericValues
@@ -61,6 +62,7 @@ function PlanetProvider(props) {
     search,
     filtroPlanetas,
     filtroSelect,
+    setSearch,
   };
   const { children } = props;
   return (
