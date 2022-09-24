@@ -13,13 +13,6 @@ function PlanetProvider(props) {
     filterByNumericValues: [],
   });
 
-  // const handleChangeGenerico = ({ target: { name, value } }) => {
-  //   setSearch((prevSearch) => ({
-  //     ...prevSearch,
-  //     [name]: value,
-  //   }));
-  // };
-
   const filtroPlanetas = (palavra) => {
     setSearch({
       filterByName: {

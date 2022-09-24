@@ -5,16 +5,15 @@ function Table() {
   const { getPlanets, planets,
     loading, search, setSearch } = useContext(PlanetContext);
 
+  useEffect(() => {
+    getPlanets();
+  }, []);
+
   const filtro = (search.filterByName.name.length > 0)
     ? planets.filter((planeta) => (planeta.name)
       .toLowerCase().includes(search.filterByName.name))
 
     : planets;
-
-  // const acaoFiltrar = (retornoDoFiltro) => retornoDoFiltro.map(search
-  //   .filterByNumericValues.map(({ column, comparison, value }) => {
-
-  //   });
 
   const comparacao = ({ comparison, column, value }, Numberfilter) => {
     switch (comparison) {
@@ -57,10 +56,6 @@ function Table() {
       filterByNumericValues: [] });
   };
 
-  useEffect(() => {
-    getPlanets();
-  }, []);
-
   if (loading) return <h1>Loading...</h1>;
   return (
 
@@ -74,6 +69,7 @@ function Table() {
             <span>{e.comparison}</span>
             <span>{e.value}</span>
             <button
+              data-testid="btn-excluir"
               type="button"
               onClick={ () => excluirUm(e.column) }
             >
@@ -116,7 +112,7 @@ function Table() {
           {console.log(acaoFiltrar())}
           {acaoFiltrar().map((planet) => (
             <tr key={ planet.name }>
-              <td>{planet.name}</td>
+              <td data-testid="nomeplaneta">{planet.name}</td>
               <td>{planet.rotation_period}</td>
               <td>{planet.orbital_period}</td>
               <td>{planet.diameter}</td>
